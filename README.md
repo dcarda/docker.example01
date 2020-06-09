@@ -25,7 +25,7 @@ The purpose of this exercise is not to do things in the most efficient manner.  
 
 
 
-### Prerequisites
+## Prerequisites
 
 Here's a few things you're going to need to do before proceeding.
 
