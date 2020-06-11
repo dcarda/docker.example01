@@ -69,8 +69,18 @@ RUN set -eux   \
     && chown -R jboss:jboss /opt/jboss \
     && chmod -R g+rw /opt/jboss
 
+#  ----------------------------------------------------------------  
 # Set the default user to be jboss
 USER jboss
+
+# Make the Bash prompt look pretty.
+# This will help a little:  http://bashrcgenerator.com/
+RUN echo 'PS1="[\d \[\e[33m\]\t\[\e[m\]] - \[\e[36m\]$(pwd)\[\e[m\]\n >  "' >> ~/.bashrc
+
+# Expose internal ports and configure for JBoss
+EXPOSE 8080 9990
+WORKDIR /opt/jboss/wildfly
+CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0" ]
 
 #  ----------------------------------------------------------------  
 #   Display Interesting information   -----------------------------
