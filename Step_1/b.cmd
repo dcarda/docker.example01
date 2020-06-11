@@ -1,3 +1,7 @@
+::
+::  This is just my generic build file for DOS.  It just 
+::  automates all the steps I usually do anyway.
+
 cls
 
 ::  This will remove all the Docker images from the local repository
