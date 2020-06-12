@@ -2,7 +2,7 @@
 In this document we'll be going over the Dockerfile document and explaining how the sections affect the build.  I'm not going to go into every line, but I'm going to hit the important parts.
 
 ## Getting Started
-This is were I'm getting the version of the operating system from.  In this case Alpine Linux 3.11.6
+This is where I'm getting the version of the operating system from.  In this case Alpine Linux 3.11.6
 
 ```text
 	#  https://hub.docker.com/_/alpine
@@ -13,19 +13,19 @@ This is were I'm getting the version of the operating system from.  In this case
 I usually add Bash because I always seem to need to need to get in an look at the container.  Curl is used to download stuff and will be removed later.
 
 ```text
-	#  ----------------------------------------------------------------  
-	#  Add utilities which I always seem to need.   -------------------
-	RUN apk add --no-cache bash ; \
-		apk add --no-cache curl ;
+#  ----------------------------------------------------------------  
+#  Add utilities which I always seem to need.   -------------------
+RUN apk add --no-cache bash ; \
+	apk add --no-cache curl ;
 ```
 
 
 This is where I'm telling the container to set up a user and group for jboss.  JBoss (and Java) will both be running under the jboss user.
 
 ```text
-    RUN  set -eux                     \
-         && addgroup -g 101 -S jboss  \
-         && adduser -S -D -H -u 101 -h /opt/jboss -s /sbin/nologin -G jboss -g jboss jboss
+RUN  set -eux                     \
+	 && addgroup -g 101 -S jboss  \
+	 && adduser -S -D -H -u 101 -h /opt/jboss -s /sbin/nologin -G jboss -g jboss jboss
 ```
 
 Here I'm setting up the container environment so it can run Java.
@@ -43,7 +43,7 @@ A really good explanation between the musl and glibc libraries can be found here
 
     https://blog.gilliard.lol/2018/11/05/alpine-jdk11-images.html
 	
-The last two lines will change the owner ship of everything in the java directory to jboss, and will set everything to be able to be executed.
+The last two lines will change the owner ship of everything in the java directory to 'jboss', and will set everything to be able to be executed.
 ```text
 #  JAVA:  Download and install Open JDK 11   ----------------------
 RUN set -eux                                      \
@@ -56,6 +56,53 @@ RUN set -eux                                      \
     && chmod -R g+rw $JAVA_HOME                   \
     && chown -R jboss:jboss $JAVA_HOME
 ```
+
+Now we're going to start working on the JBoss part.  This is very similar to the Java download part (above).  
+
+Lines 2-4 are where we create the target jboss directory and change directory into it.  
+
+Lines 5-6 do the actual downloading and check the sha1 CRC value.
+
+The last two lines will change the owner ship of everything in the java directory to 'jboss', and will set everything to be able to be executed.
+
+
+```text
+RUN set -eux   \
+    && cd /opt \
+    && mkdir jboss \
+    && cd jboss \
+    && curl -O https://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz \
+    && sha1sum wildfly-$WILDFLY_VERSION.tar.gz | grep $WILDFLY_SHA1 \
+    && tar xf wildfly-$WILDFLY_VERSION.tar.gz  \ 
+    && rm wildfly-$WILDFLY_VERSION.tar.gz \
+    && mv wildfly-$WILDFLY_VERSION wildfly \
+    && chown -R jboss:jboss /opt/jboss \
+    && chmod -R g+rw /opt/jboss
+```
+
+We are done downloading things so curl is no longer needed.  The next lines will remove it from the container.	
+```text
+RUN set -eux                  \
+    && apk del  curl          \
+    && rm -rf /var/cache/apk/*	
+```
+	
+At this point we need to set the default user to 'jboss'.  This is the user which will be running the actual JBoss server	
+```text
+#  ----------------------------------------------------------------  
+# Set the default user to be jboss
+USER jboss
+```
+
+Here, we're adding some configuration information for JBoss.  When you start the container, the default is now to start the jboss server.
+```text
+# Expose internal ports and configure for JBoss
+EXPOSE 8080 9990
+WORKDIR /opt/jboss/wildfly
+CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0" ]
+```
+
+
 
 
 
