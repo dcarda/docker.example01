@@ -9,14 +9,15 @@ USER root
 
 #  ----------------------------------------------------------------  
 #  Add utilities which I always seem to need.   -------------------
+#
+#  -e:  Exit immediately if a command exits with a non-zero status.
+#  -u:  Treat unset variables as an error when substituting.
+#  -x:  Print commands and their arguments as they are executed.
 RUN apk add --no-cache bash ; \
     apk add --no-cache curl ;
 
 #  ----------------------------------------------------------------  
 #  Create the group and user for JBoss   --------------------------
-# -e:  Exit immediately if a command exits with a non-zero status.
-# -u:  Treat unset variables as an error when substituting.
-# -x:  Print commands and their arguments as they are executed.
 RUN  set -eux                     \
      && addgroup -g 101 -S jboss  \
      && adduser -S -D -H -u 101 -h /opt/jboss -s /sbin/nologin -G jboss -g jboss jboss
@@ -68,10 +69,10 @@ RUN set -eux   \
     && chown -R jboss:jboss /opt/jboss \
     && chmod -R g+rw /opt/jboss
 
-## Clean up; don't need curl anymore.
-# RUN apk del  curl
-# RUN rm -rf /var/lib/apt/lists/*
-# RUN rm -rf /var/cache/apk/*
+# Clean up; don't need curl anymore.
+RUN set -eux                  \
+    && apk del  curl          \
+    && rm -rf /var/cache/apk/*
 
 #  ----------------------------------------------------------------  
 # Set the default user to be jboss
