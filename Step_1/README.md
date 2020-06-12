@@ -1,7 +1,7 @@
 # Personal Docker Project
-In this document we'll be going over the Dockerfile document and explaining how the sections affect the build.  I'm not going to go into every line, but I'm going to hit the important parts.
+In this document we'll be going over the Dockerfile document (for this step) and explaining how the sections affect the build.  I'm not going to go into every line, but I'm going to hit the important parts.
 
-## Getting Started
+## Detailed Explanation
 This is where I'm getting the version of the operating system from.  In this case Alpine Linux 3.11.6
 
 ```text
@@ -20,7 +20,7 @@ RUN apk add --no-cache bash ; \
 ```
 
 
-This is where I'm telling the container to set up a user and group for jboss.  JBoss (and Java) will both be running under the jboss user.
+This is where I'm telling the container to set up a user and group for jboss.  JBoss, and Java, will both be running under the jboss user.
 
 ```text
 RUN  set -eux                     \
@@ -28,7 +28,7 @@ RUN  set -eux                     \
 	 && adduser -S -D -H -u 101 -h /opt/jboss -s /sbin/nologin -G jboss -g jboss jboss
 ```
 
-Here I'm setting up the container environment so it can run Java.
+Here I'm setting up the container environment so it can find and run Java.
 ```text
 ENV JAVA_HOME=/opt/java                   \
     PATH=${PATH}:/opt/java/bin            \
@@ -37,13 +37,15 @@ ENV JAVA_HOME=/opt/java                   \
 
 This next section does a ton of import stuff.  First, we're going to download Java.
 
-There's an issue here though.  We're downloading the version of Java which uses the musl libraries.  There is an important difference between Alpine and other common Linux distros: it does not use glibc, instead it uses musl. What are glibc and musl? They are programming APIs for the Linux Kernel, doing such things as opening files or network connections. 
+There's an issue here though.  We're downloading the version of Java which uses the musl libraries.  There is an important difference between Alpine and other common Linux distros: it does not use glibc, instead it was compiled using the musl libraries. 
+
+What are glibc and musl? They are programming APIs for the Linux Kernel, doing such things as opening files or network connections. 
 
 A really good explanation between the musl and glibc libraries can be found here:
 
     https://blog.gilliard.lol/2018/11/05/alpine-jdk11-images.html
 	
-The last two lines will change the owner ship of everything in the java directory to 'jboss', and will set everything to be able to be executed.
+The last two lines will change the owner ship of everything in the java directory to 'jboss', and will set everything to be executable.
 ```text
 #  JAVA:  Download and install Open JDK 11   ----------------------
 RUN set -eux                                      \
@@ -63,7 +65,7 @@ Lines 2-4 are where we create the target jboss directory and change directory in
 
 Lines 5-6 do the actual downloading and check the sha1 CRC value.
 
-The last two lines will change the owner ship of everything in the java directory to 'jboss', and will set everything to be able to be executed.
+The last two lines will change the owner ship of everything in the java directory to 'jboss', and will set everything to be able to be executable.
 
 
 ```text
@@ -102,7 +104,5 @@ WORKDIR /opt/jboss/wildfly
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0" ]
 ```
 
-
-
-
-
+## Finished!
+That's it.  Check out the batch file b.cmd to see how to build this Docker image!
