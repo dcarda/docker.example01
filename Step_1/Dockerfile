@@ -68,13 +68,18 @@ RUN set -eux   \
     && chown -R jboss:jboss /opt/jboss \
     && chmod -R g+rw /opt/jboss
 
+## Clean up; don't need curl anymore.
+# RUN apk del  curl
+# RUN rm -rf /var/lib/apt/lists/*
+# RUN rm -rf /var/cache/apk/*
+
 #  ----------------------------------------------------------------  
 # Set the default user to be jboss
 USER jboss
 
 # Make the Bash prompt look pretty.
 # This will help a little:  http://bashrcgenerator.com/
-RUN echo 'PS1="[\d \[\e[33m\]\t\[\e[m\]] - \[\e[36m\]$(pwd)\[\e[m\]\n >  "' >> ~/.bashrc
+RUN echo 'PS1="[\d \[\e[33m\]\t\[\e[m\]] - \[\e[36m\] \$PWD \[\e[m\]\n >  "' >> ~/.bashrc
 
 # Expose internal ports and configure for JBoss
 EXPOSE 8080 9990
