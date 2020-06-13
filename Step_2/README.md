@@ -30,7 +30,7 @@ The Dockerfile for this step is very short.
 
 The first line gets the image we built in Step 1.  If you don't have a local image it will automatically run out to Docker Hub and download it for you.
 
-The bottom for lines are copying jars files which were downloaded when we did the Maven dependency update.
+The bottom four lines are copying jars files which were downloaded when we did the Maven dependency update.
 
 ```text
 FROM codewarrior23/personal-repository:wildfly-step1
