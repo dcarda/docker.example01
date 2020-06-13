@@ -22,6 +22,9 @@ This build batch file is similar to the one in Step 1.  However, there's a new a
 call mvn clean dependency:copy-dependencies
 ```
 
+This Maven call will download the dependencies in the pom.xml file.  We'll manually copy these jars in to the Docker image at a later point.
+
+
 ###  Dockerfile
 The Dockerfile for this step is very short.
 
