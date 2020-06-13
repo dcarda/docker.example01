@@ -1,0 +1,48 @@
+<?xml version="1.0" 
+      encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <!-- ===================================================================== -->
+    <!--  Artifact Information                                                 -->
+    <!-- ===================================================================== -->
+    <groupId>com.carda</groupId>
+    <artifactId>fun</artifactId>
+    <version>1.0.0</version>
+
+    <!-- ===================================================================== -->
+    <!--  Miscellaneous Settings                                               -->
+    <!-- ===================================================================== -->
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>  
+
+    <!-- ===================================================================== -->
+    <!--  Developers                                                           -->
+    <!-- ===================================================================== -->
+    <developers>
+        <!--  Daniel Carda   ================================================  -->
+        <developer>
+            <id />
+            <name>Daniel Carda</name>
+            <email>HireDan@CardaTechnologies.com</email>
+            <url>http://danielcarda.net/</url>
+            <roles />
+            <timezone>America/Denver</timezone>
+            <properties />
+        </developer>
+    </developers>  <!--  End:  Developers  -->
+    
+    <!-- ===================================================================== -->
+    <!--  Dependencies                                                         -->
+    <!-- ===================================================================== -->
+   <dependencies>
+        <dependency>
+          <groupId>com.oracle.database.jdbc</groupId>
+          <artifactId>ojdbc10</artifactId>
+          <version>19.6.0.0</version>
+        </dependency>
+    </dependencies>
+    
+</project>
