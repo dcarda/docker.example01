@@ -9,7 +9,6 @@ This is where I'm getting the version of the operating system from.  In this cas
 	FROM alpine:3.11.6
 ```
 
-
 I usually add Bash because I always seem to need to need to get in an look at the container.  Curl is used to download stuff and will be removed later.
 
 ```text
@@ -102,6 +101,20 @@ Here, we're adding some configuration information for JBoss.  When you start the
 EXPOSE 8080 9990
 WORKDIR /opt/jboss/wildfly
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0" ]
+```
+
+## Update The Image On Docker Hub
+At this point your image is completely built, and it's time to upload the image to Docker Hub.  You need to do this to make it available to other users, and because Step_2 is also going to use this image.
+
+```text
+docker push codewarrior23/personal-repository:wildfly-step1
+```
+
+## Running The Image
+It doesn't do anything yet, but you can start JBoss if you're courious.  This command should get you going.
+
+```text
+docker run -it codewarrior23/personal-repository:wildfly-step1
 ```
 
 ## Finished!
