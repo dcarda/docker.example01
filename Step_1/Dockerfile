@@ -82,10 +82,19 @@ USER jboss
 # This will help a little:  http://bashrcgenerator.com/
 RUN echo 'PS1="[\d \[\e[33m\]\t\[\e[m\]] - \[\e[36m\] \$PWD \[\e[m\]\n >  "' >> ~/.bashrc
 
+# Now that we have the environment set up, we need to create a user for 
+# the JBoss admin console.
+run set -eux                      \
+    && cd /opt/jboss/wildfly/bin  \
+	&& ./add-user.sh admin admin
+
+# Ensure signals are forwarded to the JVM process correctly for graceful shutdown
+ENV LAUNCH_JBOSS_IN_BACKGROUND true
+
 # Expose internal ports and configure for JBoss
 EXPOSE 8080 9990
 WORKDIR /opt/jboss/wildfly
-CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0" ]
+CMD ["/opt/jboss/wildfly/bin/standalone.sh",  "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
 
 #  ----------------------------------------------------------------  
 #   Display Interesting information   -----------------------------
