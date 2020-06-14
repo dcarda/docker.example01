@@ -104,7 +104,7 @@ Basicallly, the last line does the heavy lifting.
 # the JBoss admin console.
 run set -eux                      \
     && cd /opt/jboss/wildfly/bin  \
-	&& ./add-user.sh admin admin
+    && ./add-user.sh admin admin
 ```
 
 Here, we're adding some configuration information for JBoss.  When you start the container, the default is now to start the JBoss server.
