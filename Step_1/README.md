@@ -5,8 +5,8 @@ In this document we'll be going over the Dockerfile document (for this step) and
 This is where I'm getting the version of the operating system from.  In this case Alpine Linux 3.11.6
 
 ```text
-	#  https://hub.docker.com/_/alpine
-	FROM alpine:3.11.6
+#  https://hub.docker.com/_/alpine
+FROM alpine:3.11.6
 ```
 
 I usually add Bash because I always seem to need to need to get in an look at the container.  Curl is used to download stuff and will be removed later.
@@ -36,7 +36,7 @@ ENV JAVA_HOME=/opt/java                   \
 
 This next section does a ton of import stuff.  First, we're going to download Java.
 
-There's an issue here though.  We're downloading the version of Java which uses the musl libraries.  There is an important difference between Alpine and other common Linux distros: it does not use glibc, instead it was compiled using the musl libraries. 
+There's an issue here though.  We're downloading the version of Java which uses the musl libraries.  There is an important difference between Alpine Linux and other common Linux distros: it does not use glibc, instead it was compiled using the musl libraries. 
 
 What are glibc and musl? They are programming APIs for the Linux Kernel, doing such things as opening files or network connections. 
 
@@ -95,6 +95,18 @@ At this point we need to set the default user to 'jboss'.  This is the user whic
 USER jboss
 ```
 
+In this next section we're going to be creating the JBoss server accounts.  Previously, we created JBoss accounts
+for Linux.  But now we need to create JBoss account so we can access the JBoss Administration Console.
+
+Basicallly, the last line does the heavy lifting.
+```text
+# Now that we have the environment set up, we need to create a user for 
+# the JBoss admin console.
+run set -eux                      \
+    && cd /opt/jboss/wildfly/bin  \
+	&& ./add-user.sh admin admin
+```
+
 Here, we're adding some configuration information for JBoss.  When you start the container, the default is now to start the JBoss server.
 ```text
 # Expose internal ports and configure for JBoss
@@ -117,7 +129,7 @@ It doesn't do anything yet, but you can start JBoss if you're curious.  This com
 docker run -p 8080:8080 -p 9990:9990  -it   codewarrior23/personal-repository:wildfly-step1
 ```
 
-You should be able to look at the JBoss Administration Console here:
+You should be able to look at the JBoss Administration Console here (remember the userid/password is admin/admin):
 
 ```text
 http://localhost:9990/console/index.html
