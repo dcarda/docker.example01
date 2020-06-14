@@ -95,7 +95,7 @@ At this point we need to set the default user to 'jboss'.  This is the user whic
 USER jboss
 ```
 
-Here, we're adding some configuration information for JBoss.  When you start the container, the default is now to start the jboss server.
+Here, we're adding some configuration information for JBoss.  When you start the container, the default is now to start the JBoss server.
 ```text
 # Expose internal ports and configure for JBoss
 EXPOSE 8080 9990
@@ -111,11 +111,24 @@ docker push codewarrior23/personal-repository:wildfly-step1
 ```
 
 ## Running The Image
-It doesn't do anything yet, but you can start JBoss if you're courious.  This command should get you going.
+It doesn't do anything yet, but you can start JBoss if you're curious.  This command should get you going.
 
 ```text
-docker run -it codewarrior23/personal-repository:wildfly-step1
+docker run -p 8080:8080 -p 9990:9990  -it   codewarrior23/personal-repository:wildfly-step1
+```
+
+You should be able to look at the JBoss Administration Console here:
+
+```text
+http://localhost:9990/console/index.html
+```
+
+Also, if you just want to look around, you can use the following command to launch
+as Bash prompt.  
+
+```text
+docker run  -it   codewarrior23/personal-repository:wildfly-step1 bash
 ```
 
 ## Finished!
-That's it.  Check out the batch file b.cmd to see how to build this Docker image!
+That's it.  You've successfully built and deployed the Step_1 image.  It's time to move on to Step 2!
