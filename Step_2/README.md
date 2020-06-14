@@ -49,12 +49,25 @@ docker push codewarrior23/personal-repository:wildfly-step2
 ```
 
 ## Running The Image
-It still doesn't do anything yet, but you can start JBoss if you're courious.  This command should get you going.
+It doesn't do anything yet, but you can start JBoss if you're curious.  This command should get you going.
 
 ```text
-docker run -it codewarrior23/personal-repository:wildfly-step2
+docker run -p 8080:8080 -p 9990:9990  -it   codewarrior23/personal-repository:wildfly-step1
+```
+
+You should be able to look at the JBoss Administration Console here (remember the userid/password is admin/admin):
+
+```text
+http://localhost:9990/console/index.html
+```
+
+Also, if you just want to look around, you can use the following command to launch
+as Bash prompt.  
+
+```text
+docker run  -it   codewarrior23/personal-repository:wildfly-step1 bash
 ```
 
 ## Finished!
 That's it.  You're doing very well.  Time to move on to Step 3 where we will create
-a microservice and deploy it to JBoss.
+a micro service and deploy it to JBoss.
