@@ -12,8 +12,17 @@ import com.cardatechnologies.springboot.example.travail.HeavyLifting;
 
 @RestController
 public class SpringBootController {
+
+    /**
+     * Never to any heavy lifting in this method.  Just receive the request and shunt it off
+     * to another Jar for processing.
+     *
+     * @return String  The return message.
+     */
     @RequestMapping("/hi")
     public String helloWorld() {
+
+
         String retString = null;
 
         try {
