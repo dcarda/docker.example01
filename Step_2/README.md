@@ -52,7 +52,7 @@ docker push codewarrior23/personal-repository:wildfly-step2
 It doesn't do anything yet, but you can start JBoss if you're curious.  This command should get you going.
 
 ```text
-docker run -p 8080:8080 -p 9990:9990  -it   codewarrior23/personal-repository:wildfly-step1
+docker run -p 8080:8080 -p 9990:9990  -it   codewarrior23/personal-repository:wildfly-step2
 ```
 
 You should be able to look at the JBoss Administration Console here (remember the userid/password is admin/admin):
@@ -65,7 +65,7 @@ Also, if you just want to look around, you can use the following command to laun
 as Bash prompt.  
 
 ```text
-docker run  -it   codewarrior23/personal-repository:wildfly-step1 bash
+docker run  -it   codewarrior23/personal-repository:wildfly-step2 bash
 ```
 
 ## Finished!
