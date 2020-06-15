@@ -28,22 +28,23 @@ hs_err_pid*
 **/conf/
 **/db/
 
-#  Eclipse Directories   ----------------------------------
-**/.project
-**/.settings
-**/.classpath
-**/.metadata
-**/.externalToolBuilders
-**/.recommenders
+#  Eclipse/STS Related   ----------------------------------
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
 #  Gradle   ------------------------------------------------
 **/.gradle
 
 #  Intellij   ----------------------------------------------
-**/.idea/
-**/*.iml
-**/*.ipr
-**/*.iws
+.idea
+*.iws
+*.iml
+*.ipr
 
 #  Application Specific Files   ----------------------------
 **/nppBackup
