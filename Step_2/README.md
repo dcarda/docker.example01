@@ -4,11 +4,11 @@ The purpose of this second step is to "enhance" the JBoss container.
 
 As someone who's setup and maintained production Java EE containers it's been my experience that you always need to add a few libraries to the container itself.
 
-A good example are JDBC drivers.  I generally add the application JDBC jars directly to the J2EE container because it makes the drivers avaible to all applications running on the Java EE container.  (I have *never* seen an instance where two applications running on the same container needed seperate versions of a JDBC driver.)
+A good example are JDBC drivers.  I generally add the application JDBC jars directly to the J2EE container because it makes the drivers available to all applications running on the Java EE container.  (I have *never* seen an instance where two applications running on the same container needed separate versions of a JDBC driver.)
 
 Another example is MQ Series from IBM.  I once set up a Tomcat server but I found a three MQ jars which could not be deployed as part of the application.  For some reason the classloader would not recognize the jars unless they were deployed with the Tomcat server itself.  (I never did figure out why?)
 
-So, in this step we're going to download a few Oracle drivers from Maven Centeral, then we're going to copy these jars into the JBoss ./lib directory so they will be avaiable to all applications running on this JBoss installtion.
+So, in this step we're going to download a few Oracle drivers from Maven Central, then we're going to copy these jars into the JBoss ./lib directory so they will be available to all applications running on this JBoss installation.
 
 ## Detailed Explanation
 
