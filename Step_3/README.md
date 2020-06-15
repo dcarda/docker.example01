@@ -1,6 +1,6 @@
 # Personal Docker Project
 
-In this last step we're going to build a War archieve which will have a small, example, micro service in it.  
+In this last step we're going to build a War archive which will have a small, example, micro service in it.  
 
 It's not much, but it's a very good starting place!
 
@@ -8,7 +8,7 @@ It's not much, but it's a very good starting place!
 ## Detailed Explanation
 
 ###  pom.xml
-The starting point for this web service was the Spring IO Initilazer.  The generated pom, however, was not initially compatiable with JBoss.  Therefore, several (very minor) modifications were required.  
+The starting point for this web service was the Spring IO Initializer.  The generated pom, however, was not initially compatible with JBoss.  Therefore, several (very minor) modifications were required.  
 
 Moisés Macero has a superb article on now to make the necessary modifications to get a Spring Boot micro service running under JBoss.  
 ```text
@@ -18,7 +18,7 @@ https://thepracticaldeveloper.com/2018/08/06/how-to-deploy-a-spring-boot-war-in-
 Naturally, the formatting of the pom was brought up to my specifications.
 
 ###  Dockerfile
-The Dockerfile for this step is also very short.  We set up everything in prevsion steps.
+The Dockerfile for this step is also very short.  We set up everything in previous steps.
 
 The only work to do here is to move the newly generated war file into the containers deployment directory.
 
@@ -62,6 +62,6 @@ docker run  -it   codewarrior23/personal-repository:wildfly-step2 bash
 ```
 
 ## Finished!
-That's it.  Very well done!  From here, you can take this simple web servcie and start expanding on it!
+That's it.  Very well done!  From here, you can take this simple web service and start expanding on it!
 
 Good Luck!
