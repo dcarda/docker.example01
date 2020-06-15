@@ -1,19 +1,14 @@
 # Personal Docker Project
 
-The purpose of this second step is to "enhance" the JBoss container.
+In this last step we're going to build a War archieve which will have a small, example, micro service in it.  
 
-As someone who's setup and maintained production Java EE containers it's been my experience that you always need to add a few libraries to the container itself.
+It's not much, but it's a very good starting place!
 
-A good example are JDBC drivers.  I generally add the application JDBC jars directly to the J2EE container because it makes the drivers avaible to all applications running on the Java EE container.  (I have *never* seen an instance where two applications running on the same container needed seperate versions of a JDBC driver.)
-
-Another example is MQ Series from IBM.  I once set up a Tomcat server but I found a three MQ jars which could not be deployed as part of the application.  For some reason the classloader would not recognize the jars unless they were deployed with the Tomcat server itself.  (I never did figure out why?)
-
-So, in this step we're going to download a few Oracle drivers from Maven Centeral, then we're going to copy these jars into the JBoss ./lib directory so they will be avaiable to all applications running on this JBoss installation.
 
 ## Detailed Explanation
 
 ###  pom.xml
-The starting point for this web service was the Spring IO Initiilazer.  The generated pom, however, was not initially compatiable with JBoss.  Therefore, several (very minor) modifications were required.  
+The starting point for this web service was the Spring IO Initilazer.  The generated pom, however, was not initially compatiable with JBoss.  Therefore, several (very minor) modifications were required.  
 
 Moisés Macero has a superb article on now to make the necessary modifications to get a Spring Boot micro service running under JBoss.  
 ```text
