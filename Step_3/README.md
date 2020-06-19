@@ -27,6 +27,33 @@ The only work to do here is to move the newly generated war file into the contai
 COPY target/sb-jboss-example*.war     /opt/jboss/wildfly/standalone/deployments/SpringBootJboss.war
 ```
 
+###  NOTE:  Remote Debugging
+
+Starting from Java 9, there was a change in the way JDWP (Java Debug Wire Protocol) works.  
+Basically, remote debugging can only be done on the local host.  But here's the catch 
+with regards to Docker.  When you're running a container, the *container* is considered
+'localhost', *not your machine*.  
+
+In order to get around this we had to make a change to the port syntax.  The 
+standalone.sh file has this change and needs to be copied into the target image.
+
+```text
+#DEBUG  -- We need to replace this file to get the remote debugger working
+COPY standalone.sh                    /opt/jboss/wildfly/bin
+```
+
+And we'll need to add the 'debug' flag to the startup string
+```text
+CMD ["/opt/jboss/wildfly/bin/standalone.sh",  "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0", "--debug"]
+```
+
+Finally, at the command line, you'll need to start the container slightly different.  You'll need to expose the debugging 
+ports to the outside world.
+
+```text
+docker run -p 8080:8080 -p 8787:8787 -p 9990:9990  -it   codewarrior23/personal-repository:wildfly-step3
+```
+
 ## Update The Image On Docker Hub
 You're going to need to push this new image to Docker Hub.  This image will be used in Step 3.
 
