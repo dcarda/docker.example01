@@ -91,10 +91,21 @@ run set -eux                      \
 # Ensure signals are forwarded to the JVM process correctly for graceful shutdown
 ENV LAUNCH_JBOSS_IN_BACKGROUND true
 
-# Expose internal ports and configure for JBoss
-EXPOSE 8080 9990
+# Expose internal ports
+# Default listening port.
+EXPOSE 8080
+# Debugging port
+EXPOSE 8787
+# Admin console port.
+EXPOSE 9990
+
+#  Configure for JBoss
 WORKDIR /opt/jboss/wildfly
-CMD ["/opt/jboss/wildfly/bin/standalone.sh",  "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+
+# This is for regular Production mode.
+#CMD ["/opt/jboss/wildfly/bin/standalone.sh",  "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+# You want to use this when you're in development/debugging mode.
+CMD ["/opt/jboss/wildfly/bin/standalone.sh",  "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0", "--debug"]
 
 #  ----------------------------------------------------------------  
 #   Display Interesting information   -----------------------------
