@@ -4,7 +4,7 @@ FROM codewarrior23/personal-repository:wildfly-step2
 # Copy the Java Jar files into the JBoss ./lib directory.
 COPY target/sb-jboss-example*.war     /opt/jboss/wildfly/standalone/deployments/SpringBootJboss.war
 #DEBUG  -- We need to replace this file to get the remote debugger working
-COPY standalone.sh                    /opt/jboss/wildfly/bin
+COPY src/wildfly/bin/standalone.sh    /opt/jboss/wildfly/bin
 
 # Ensure signals are forwarded to the JVM process correctly for graceful shutdown
 ENV LAUNCH_JBOSS_IN_BACKGROUND true
