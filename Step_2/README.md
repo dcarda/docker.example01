@@ -54,8 +54,7 @@ either production or development.
 CMD ["/opt/jboss/wildfly/bin/standalone.sh",  "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0", "--debug"]
 ```
 
-Finally, at the command line, you'll need to start the container slightly different.  You'll need to expose the debugging 
-ports to the outside world.
+Finally, at the command line, you'll need to start the container slightly different.  If you are setting up a development server, you will need to expose the debugging ports to the outside world.
 
 ```text
 docker run -p 8080:8080 -p 8787:8787 -p 9990:9990  -it   codewarrior23/personal-repository:wildfly-step3

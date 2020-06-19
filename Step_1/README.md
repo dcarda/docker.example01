@@ -9,7 +9,7 @@ This is where I'm getting the version of the operating system from.  In this cas
 FROM alpine:3.11.6
 ```
 
-I usually add Bash because I always seem to need to need to get in an look at the container.  Curl is used to download stuff and will be removed later.
+I usually add Bash because I always seem to need to need to get in and look at the container.  Curl is used to download files and will be removed later.
 
 ```text
 #  ----------------------------------------------------------------  
@@ -44,7 +44,7 @@ A really good explanation between the musl and glibc libraries can be found here
 
     https://blog.gilliard.lol/2018/11/05/alpine-jdk11-images.html
 	
-The last two lines will change the owner ship of everything in the java directory to 'jboss', and will set everything to be executable.
+The last two lines will change the ownership of everything in the java directory to 'jboss', and will set everything to be able to be executable.
 ```text
 #  JAVA:  Download and install Open JDK 11   ----------------------
 RUN set -eux                                      \
@@ -128,8 +128,7 @@ either production or development.
 CMD ["/opt/jboss/wildfly/bin/standalone.sh",  "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0", "--debug"]
 ```
 
-Finally, at the command line, you'll need to start the container slightly different.  You'll need to expose the debugging 
-ports to the outside world.
+Finally, at the command line, you'll need to start the container slightly different.  If you are setting up a development server, you will need to expose the debugging ports to the outside world.
 
 ```text
 docker run -p 8080:8080 -p 8787:8787 -p 9990:9990  -it   codewarrior23/personal-repository:wildfly-step3
