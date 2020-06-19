@@ -23,7 +23,7 @@ WORKDIR /opt/jboss/wildfly
 
 # This is for regular Production mode.
 #CMD ["/opt/jboss/wildfly/bin/standalone.sh",  "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
-# You want to use this when you're in developement/debugging mode.
+# You want to use this when you're in development/debugging mode.
 CMD ["/opt/jboss/wildfly/bin/standalone.sh",  "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0", "--debug"]
 
 #  ----------------------------------------------------------------  
