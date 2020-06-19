@@ -115,6 +115,26 @@ WORKDIR /opt/jboss/wildfly
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0" ]
 ```
 
+###  NOTE:  Remote Debugging
+
+When you're in development mode, there's a good chance you're going to want to attach the 
+remote debugger.  So, in the Dockerfile, you'll need to address this section and tune to
+either production or development.
+
+```text
+# This is for regular Production mode.
+#CMD ["/opt/jboss/wildfly/bin/standalone.sh",  "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+# You want to use this when you're in development/debugging mode.
+CMD ["/opt/jboss/wildfly/bin/standalone.sh",  "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0", "--debug"]
+```
+
+Finally, at the command line, you'll need to start the container slightly different.  You'll need to expose the debugging 
+ports to the outside world.
+
+```text
+docker run -p 8080:8080 -p 8787:8787 -p 9990:9990  -it   codewarrior23/personal-repository:wildfly-step3
+```
+
 ## Update The Image On Docker Hub
 At this point your image is completely built, and it's time to upload the image to Docker Hub.  You need to do this to make it available to other users, and because Step_2 is also going to use this image.
 

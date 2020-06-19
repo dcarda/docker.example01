@@ -41,6 +41,26 @@ COPY target/dependency/osdt_cert-19.6.0.0.jar  /opt/jboss/wildfly/standalone/lib
 COPY target/dependency/osdt_core-19.6.0.0.jar  /opt/jboss/wildfly/standalone/lib
 ```
 
+###  NOTE:  Remote Debugging
+
+When you're in development mode, there's a good chance you're going to want to attach the 
+remote debugger.  So, in the Dockerfile, you'll need to address this section and tune to
+either production or development.
+
+```text
+# This is for regular Production mode.
+#CMD ["/opt/jboss/wildfly/bin/standalone.sh",  "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+# You want to use this when you're in development/debugging mode.
+CMD ["/opt/jboss/wildfly/bin/standalone.sh",  "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0", "--debug"]
+```
+
+Finally, at the command line, you'll need to start the container slightly different.  You'll need to expose the debugging 
+ports to the outside world.
+
+```text
+docker run -p 8080:8080 -p 8787:8787 -p 9990:9990  -it   codewarrior23/personal-repository:wildfly-step3
+```
+
 ## Update The Image On Docker Hub
 You're going to need to push this new image to Docker Hub.  This image will be used in Step 3.
 
